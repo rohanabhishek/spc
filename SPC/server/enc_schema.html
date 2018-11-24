@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<div id="schema"></div>
+<div id="key"></div>
+<br/>
+<button onclick="ChangeSchema()">Change Schema</button>
+<button onclick="ChangeKey()">Change Key</button>
+
+<script>
+
+function ChangeSchema() {
+    var schema = prompt("Please enter your schema:", "Schema");
+    if(schema !== "AES" && schema !== "DES" && schema !== "BLOWFISH"){
+    	schema = "Undefined";
+    }
+    localStorage.setItem("schema", schema);
+}
+
+function ChangeKey() {
+    var key = prompt("Please enter the key:", "Key");
+    localStorage.setItem("key", key);
+}
+
+if(typeof(Storage) == "undefined"){
+	document.write("Storage not available");
+}
+else if(localStorage.getItem("schema") === null){
+	localStorage.setItem("schema", "Undefined");
+}
+else if(localStorage.getItem("key") === null){
+	localStorage.setItem("key", "Undefined");
+}
+else{
+	document.getElementById("schema").innerHTML = "Schema : "+localStorage.getItem("schema");
+	document.getElementById("key").innerHTML = "Key : "+localStorage.getItem("key");
+}
+
+</script>
+<p> Reload the page once after changing the schema or key. </p>
+Go to <a href='up.php'>upload page</a>
+</body>
+</html>

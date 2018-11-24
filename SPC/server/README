@@ -1,0 +1,14 @@
+We had done the server side using php
+
+login.php                             --- A page to login
+register.php		              --- to register new user
+up.php                                --- main page after login.php
+add_file.php    		      --- to add given file in the database
+config.php			      --- to configure the connection
+forgot_pass.php and reset_pass.php    --- if forgot password to reset it
+get_file.php   			      --- to view file
+web_list.php			      --- to view the files with complete directory structure
+set_reminder.php                      --- to set reminder for the user with his/her preferencec   
+enc_schema.html                       --- stores the encryption schema and key in local browser storage
+
+Start the server by using "php -S 0.0.0.0:8000" command then use the above files accordingly.
