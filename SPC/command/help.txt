@@ -1,0 +1,32 @@
+Usage: spc [OPTION]...
+	   <command> [<args>]
+
+Secure Personal Cloud is a file storage and synchronization service developed in CS251 Project in IIT Bombay.
+SPC allows users to store files on their servers, synchronize files across devices, and share files.
+Unlike Google drive it also has an encryption schema decided by each user so as to prevent hacking.
+
+Mandatory arguments to long options are mandatory for short options too.
+  download		     downloads all directories/files from server if already
+			        login otherwise	asks username and password
+  en-de			     info about encryption and decryption schema
+         list		     Lists all the supported encryption schema
+	 update	 	     To update the default schema and keys manually
+	 		     Or by providing a file as an argument
+			     e.g., "spc en-de update <file-path>"
+	dump		     To create a file for the already in place schema
+			     e.g., "spc en-de dump <file-path>"
+  --help, help               display this help and exit
+  remember		     remembers the password untill logout
+  
+  -lo, logout		     to logout the session in linux client
+
+  server                     displays server's ip and port number
+         set-url             To set the server's url e.g.,
+                               "spc server set-url 10.196.2.33" sets server url
+                               to 10.196.2.33
+  status		     displays the similarities and differences between
+				files in the client and the server
+  upload		     uploads directories/files provided as aruguments
+                                if already login otherwise asks username and 
+                                password
+  --version	             displays the version

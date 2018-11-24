@@ -1,0 +1,176 @@
+#!/bin/bash         
+#   while test $# -gt 0; do
+case "$1" in
+    --help|help)
+        # echo "Usage: spc [OPTION]..."
+        # echo " "
+        # echo "Secure Personal Cloud is a file storage and synchronization service developed in CS251 Project in IIT Bombay. SPC allows users to store files on their servers, synchronize files across devices, and share files.Unlike Google drive it also has an encryption schema decided by each user so as to prevent hacking."
+        # echo " "
+        # echo "In such sense we could see SPC as Sync System + Encryption-Decryption system."
+	# echo " "
+	# echo "Mandatory  arguments to long options are mandatory for short options too."
+	# echo " " 
+        # echo "-h, help"
+	# echo "show brief help"
+        # echo "-li, login"
+	# echo "To login"
+        # echo "-lo, logout"
+	cat ~/SPC/command/help.txt
+#        exit 0
+        ;;
+    # -a)
+    #         shift
+    #         if test $# -gt 0; then
+    #                 export PROCESS=$1
+    #         else
+    #                 echo "no process specified"
+    #                 exit 1
+    #         fi
+    #         shift
+    #         ;;
+    # --action*)
+    #         export PROCESS=`echo $1 | sed -e 's/^[^=]*=//g'`
+    #         shift
+    #         ;;
+    # -o)
+    #         shift
+    #         if test $# -gt 0; then
+    #                 export OUTPUT=$1
+    #         else
+    #                 echo "no output dir specified"
+    #                 exit 1
+    #         fi
+    #         shift
+    #         ;;
+    # --output-dir*)
+    #         export OUTPUT=`echo $1 | sed -e 's/^[^=]*=//g'`
+    #         shift
+    #         ;;
+    
+    -s| server)
+	shift
+	if test $# -gt 0 ; then	
+	    if [ $1 == "set-url" ] ;
+	    then
+		
+		# php -S localhost:8000
+		# echo "In process"
+		if [ $# -eq 2 ] ;then
+			python3 ~/SPC/Files/set-url.py "$2"
+		else
+			echo "Provide ip address"
+		fi
+	    else
+		echo "spc: 'server "$1"' is not a spc command. See 'spc -h' or 'spc help'."
+		
+	    fi
+	else
+	    python3 ~/SPC/Files/server-ip.py
+	    echo "Port: 8000"  
+	fi		    
+	shift
+	;;
+    remember)
+	read -p "Enter Username: " u
+	#			read -p "Password: " -e -s secret;
+	prompt="Enter Password: "
+	while IFS= read -p "$prompt" -r -s -n 1 char
+	do
+	    if [[ $char == $'\0' ]]
+	    then
+		break
+	    fi
+	    if [[ $char == $'\177' ]] && [ ! -z "$pass" ] ;  then
+		prompt=$'\b \b'
+		pass="${pass%?}"
+	    elif [[ $char == $'\177' ]] && [ -z "$pass" ] ; then
+		prompt=""
+	    else
+		prompt='*'
+		pass+="$char"
+	    fi
+	done
+	echo "";
+	prompt="Confirm Password: "
+	while IFS= read -p "$prompt" -r -s -n 1 char
+	do
+	    if [[ $char == $'\0' ]]
+	    then
+		break
+	    fi
+	    if [[ $char == $'\177' ]] && [ ! -z "$pass1" ] ;  then
+		prompt=$'\b \b'
+		pass1="${pass1%?}"
+	    elif [[ $char == $'\177' ]] && [ -z "$pass1" ] ; then
+		prompt=""
+	    else
+		prompt='*'
+		pass1+="$char"
+	    fi
+	done
+	# echo $pass;
+	# echo $pass1;
+	if [[ $pass == $pass1 ]]; then
+		echo "";
+		python3 ~/SPC/Files/login.py "$u" "$pass";
+	else 
+		echo "";
+		echo "Passwords didn't match"
+	fi
+	
+	;;
+    # login)
+    # 	pass=""
+    #    	read -p "Enter Username: " u
+    # 	#			read -p "Password: " -e -s secret;
+    # 	prompt="Enter Password: "
+    # 	while IFS= read -p "$prompt" -r -s -n 1 char
+    # 	do
+    # 	    if [[ $char == $'\0' ]]
+    # 	    then
+    # 		break
+    # 	    fi
+    # 	    if [[ $char == $'\177' ]] && [ ! -z "$pass" ] ;  then
+    # 		prompt=$'\b \b'
+    # 		pass="${pass%?}"
+    # 	    elif [[ $char == $'\177' ]] && [ -z "$pass" ] ; then
+    # 		prompt=""
+    # 	    else
+    # 		prompt='*'
+    # 		pass+="$char"
+    # 	    fi
+    # 	done
+    # 	python3 /home/rohanabhishek/Desktop/Web-client/login.py "$u" "$pass";
+    # 	;;
+    --version)
+	shift
+	echo "Secure Personal (SPC) CS2.51"
+	echo "Copyright (C) Autumn 2018, IIT Bombay."
+	echo "CS 251: Software Systems Lab - Project. <https://github.com/rohanabhishek/spc>"
+	echo "Written by 170050043-Aditya Sharma, 170050044-Suraj Yadav and 170050078-Rohan Abhishek Srikakulapu"
+	shift
+	exit 0
+	;;
+    -lo| logout)
+	python3 ~/SPC/Files/logout.py
+	;;
+    upload)
+	shift
+#	echo "$1"
+	python3 ~/SPC/Files/multiple_upload.py "$1"
+	;;
+    download)
+	shift
+#	echo "$1"
+	python3 ~/SPC/Files/multiple_download.py
+	;;
+    
+    *)
+
+	full=${@:1}
+	shift
+	python3 ~/SPC/command/commands.py $full
+        ;;
+    
+esac
+#done
