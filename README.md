@@ -1,4 +1,6 @@
 # SPC (Secure Personal Cloud)
+This project is completed under Prof. Soumen Chakrabarti in the course "Software Systems Lab"(CS251) at IITB in Autumn 2018.
+
 The goal of the project is to develop a Secure Personal Cloud for users.
 
 The cloud is Secure as all the files uploaded to the server are encrypted before storing to the database. So, the user's data is completely safe and cannot be accessed even by a security breach on the server side.
@@ -30,3 +32,6 @@ RSA :)
 1. [Rohan Abhishek S](https://github.com/rohanabhishek)
 2. [Suraj](https://github.com/yadavsuraj20)
 3. [Aditya Sharma](https://github.com/adityasharma2000)
+
+## License
+[![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
